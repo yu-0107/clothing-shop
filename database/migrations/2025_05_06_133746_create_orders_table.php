@@ -9,10 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('receiver_name');
+            $table->string('receiver_phone');
+            $table->string('receiver_address');
+            $table->decimal('total', 10, 2);
+            $table->string('status')->default('pending'); // pending, paid, shipped, completed
             $table->timestamps();
         });
     }
